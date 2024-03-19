@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import React, { useState } from 'react';
 import Header from './components/Header';
 import ListItem from './components/ListItem';
+import AddItem from './components/AddItem';
 
 const App = () => {
   const [items, setItems] = useState([
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Header />
+      <AddItem />
       <FlatList 
         data={items}
         renderItem= {({item}) => <ListItem item={item} deleteItem={deleteItem} />} />
