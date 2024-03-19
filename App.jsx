@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, Alert } from 'react-native';
 import React, { useState } from 'react';
 import Header from './components/Header';
 import ListItem from './components/ListItem';
@@ -20,13 +20,19 @@ const App = () => {
   }
 
   const onAddItem = (val) => {
-    const maxId = items.reduce((max, item) => {
-      return item.id > max ? item.id : max;
-    }, 0);
+    if (!val){
+      Alert.alert('Error', 'Please enter value ...', [{text: 'OKAY', style: 'cancel'}]);
+    } else {
+      const maxId = items.reduce((max, item) => {
+        return item.id > max ? item.id : max;
+      }, 0);
+      
+      setItems(prevItems => {
+        return [...prevItems, {id: maxId + 1, text: val}]
+      })
+    }
+
     
-    setItems(prevItems => {
-      return [...prevItems, {id: maxId + 1, text: val}]
-    })
   }
 
   return (
