@@ -16,12 +16,23 @@ const App = () => {
     setItems(prevItems => {
       return prevItems.filter(item => item.id != id)
     });
+    
+  }
+
+  const onAddItem = (val) => {
+    const maxId = items.reduce((max, item) => {
+      return item.id > max ? item.id : max;
+    }, 0);
+    
+    setItems(prevItems => {
+      return [...prevItems, {id: maxId + 1, text: val}]
+    })
   }
 
   return (
     <View style={styles.container}>
       <Header />
-      <AddItem />
+      <AddItem onAddItem={onAddItem} />
       <FlatList 
         data={items}
         renderItem= {({item}) => <ListItem item={item} deleteItem={deleteItem} />} />
